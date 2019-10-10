@@ -1,0 +1,17 @@
+[Unit]
+Description=A Grafana rendering web service that handles rendering of panels & dashboards to PNGs using headless Chrome
+Documentation=http://grafana.com/docs/administration/image_rendering
+
+[Service]
+Type=simple
+Environment=NODE_ENV=production CHROME_BIN=/usr/bin/chromium
+ExecStart=/usr/bin/node /usr/lib/%N/dist/app.js server --socket=%t/%N/sock
+RuntimeDirectory=%N
+WorkingDirectory=/%t/%N
+User=nobody
+Group=nobody
+StandardInput=null
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
